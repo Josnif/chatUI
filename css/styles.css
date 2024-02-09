@@ -1,0 +1,408 @@
+:root {
+    --primary-color: #CB1233;
+    --toggle-button-color: #8C8C8C;
+    --text-font: 'Helvetica', sans-serif;
+    --text-font-color : #fff;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%; 
+}
+
+.chat-container {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: #ffffff;
+    font-family: var(--text-font);
+    max-width: 704px;
+    width: 400px;
+    margin: auto;
+    height: min(704px,100% - 104px);
+    min-height: 80px;
+    box-shadow: 0 5px 40px rgba(0,0,0,.1);
+    bottom: 84px;
+    right: 20px;
+    border-radius: 15px;
+}
+
+
+.chat-header {
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: var(--text-font-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 90px;
+    box-sizing: border-box;
+    margin: 0;
+    flex-direction: column;
+}
+
+.logo-container {
+    width: 50px; /* Breite des Logos */
+    height: 50px; /* Höhe des Logos */
+    background-image: url('../images/amd_logo.png'); /* Pfad zum Logo-Bild */
+    background-size: cover; /* Stellt sicher, dass das Bild den Container vollständig bedeckt */
+    background-position: center; /* Zentriert das Bild im Container */
+    background-repeat: no-repeat; /* Verhindert das Wiederholen des Bildes */
+}
+
+.logo-text {
+    margin-top: 5px; /* Fügt einen Abstand von 10px links vom Text hinzu */
+ }
+
+h1 {
+    font-size: 12px;
+    margin: 0;
+}
+
+/* Nachrichten-Container */
+.messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    margin-bottom: 50px; /* Gibt Platz für den Eingabebereich */
+    display: flex;
+    flex-direction: column; /* Neue Nachrichten unten */
+}
+       
+
+/* Einzelne Nachrichten */
+.message {
+    display: flex;
+    align-items: flex-end; /* Zentriert die Elemente vertikal */
+    max-width: 70%;
+    padding: 7px 12px;
+    margin: 10px 5px;
+    border-radius: 15px;
+    position: relative;
+    font-size: 14px;
+}
+
+.message.assistant {
+    background-color: white;
+    align-self: flex-start;
+    margin-right: auto;
+}
+
+.message.mine {
+    background-color: var(--primary-color);
+    color: var(--text-font-color);
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.message-input {
+    display: flex;
+    padding: 10px 30px 10px 10px;
+    background-color: #fff; 
+    align-items: center;    
+}
+
+.message-input-field {
+    font-family: var(--text-font);
+    flex-grow: 1;
+    padding: 8.5px 37px 0px 8.5px;
+    border-radius: 20px;
+    border: 1px solid #C8C8CC;
+    margin-right: -25px;
+    margin-left: 10px;
+    font-size: 14px;
+    overflow: hidden;
+    resize: none;
+    line-height: 1.5;
+}
+
+.message-input-field:focus {
+    border-width: 1px; /* Verhindert das Fettwerden des Rahmens */
+    outline: none; /* Entfernt zusätzlichen Fokus-Rahmen */
+}
+
+.menu-toggle-button {
+    padding: 0px;
+    background-color: var(--toggle-button-color);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s; /* Sanfter Übergangseffekt */
+    width: 24px; /* Runde Buttons sollten eine feste Breite und Höhe haben */
+    height: 24px;
+    border-radius: 5px; /* Macht den Button rund */
+    z-index: 3;
+}
+
+.menu-toggle-button.menu-open {
+    background-color: var(--primary-color); /* Hintergrundfarbe, wenn das Menü geöffnet ist */    
+}
+
+.send-button {
+    padding: 0px;
+    background-color: var(--primary-color);
+    color: var(--text-font-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s; /* Sanfter Übergangseffekt */
+    width: 24px; /* Runde Buttons sollten eine feste Breite und Höhe haben */
+    height: 24px;
+    border-radius: 50%; /* Macht den Button rund */
+    position: absolute; /* Absolute Positionierung innerhalb des message-input */
+    right: 15px; /* Erhöht den Abstand vom rechten Rand, um Platz für den Text zu machen */
+}
+
+.send-button:disabled {
+    background-color: #cccccc; /* Graue Farbe, wenn der Button deaktiviert ist */
+    cursor: not-allowed; /* Cursor, der anzeigt, dass der Button nicht klickbar ist */
+    visibility: hidden;
+}
+
+.send-button:hover:not(:disabled) {
+    background-color: var(--primary-color);
+}
+
+.send-button i,
+.send-button span {
+    color: var(--text-font-color);
+    font-size: 12px; /* Größe des Pfeilsymbols */
+}
+
+.suggested-questions {
+    font-size: 14px;
+    background-color: #fff;
+    color: #000;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.question-container {
+    display: inline-block;
+    padding: 10px;
+    margin-right: 10px; /* Fügt einen Abstand zwischen den Fragen hinzu */
+}
+
+.suggested-question {
+    background-color: #f5f5f5; /* Dunklerer Hintergrund für jede Frage */
+    border-radius: 15px; /* Abgerundete Ecken */
+    padding: 10px 20px;
+    display: inline-block; /* Stellt die Elemente nebeneinander dar */
+    cursor: pointer; /* Ändert den Cursor beim Überfahren der Fragen */
+    transition: background-color 0.0s; /* Sanfter Übergang für das Hover-Effekt */
+}
+
+.suggested-question:hover {
+    background-color: var(--primary-color); /* Hintergrundfarbe ändern beim Hover */
+    color: white; /* Textfarbe ändern beim Hover */
+}
+
+.assistant-message-layout {
+    display: flex;
+    align-items: center; /* Zentriert die Elemente vertikal */
+}
+
+.assistant-logo {
+    display: block;
+    width: 30px; /* Anpassen nach Bedarf */
+    height: 30px; /* Anpassen nach Bedarf */
+    margin-right: 10px; /* Abstand zwischen Logo und Nachricht */
+    border-radius: 100%;
+}
+
+.message-content-container {
+    background-color: #E9E9EB; /* Graue Hintergrundfarbe für die Nachricht des Assistenten */
+    border-radius: 15px; /* Abgerundete Ecken für die Nachrichtenblase */
+    padding: 10px; /* Innenabstand der Nachrichtenblase */    
+}
+
+.overlay {
+    position: fixed;
+    max-width: 704px;
+    width: 400px;
+    height: min(704px,100% - 104px);
+    min-height: 80px;
+    bottom: 84px;
+    right: 20px;
+    border-radius: 15px;
+    background: linear-gradient(21deg, #FFF 0%, rgba(252, 252, 252, 0.75) 120.71%);
+    backdrop-filter: blur(3.5px);
+    z-index: 2; /* Stellt sicher, dass das Overlay über anderen Elementen liegt */
+}
+
+.menu-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Weitere Stile für das Aussehen des Menü-Containers */
+}
+
+.menu-toggle {
+    position: absolute;
+    /* Positioniere den Button entsprechend im Chat-Fenster */
+}
+
+
+.menu-container ul {
+    list-style: none; /* Entfernt die Standard-Listensymbole */
+    padding: 0; /* Entfernt den Standard-Padding der Liste */
+    bottom: -110px; /* Platziert die Liste am unteren Rand des übergeordneten Elements */
+    left: 0; /* Platziert die Liste am linken Rand des übergeordneten Elements */
+    position: absolute; /* Positioniert die Liste absolut */    
+}
+
+.overlay-menu ul {
+    list-style: none;
+    padding-left: 10px;
+    margin: -200px;
+}
+
+.overlay-menu li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.overlay-menu li .icon {
+    margin-right: 10px;
+}
+
+.overlay-menu li:hover {
+    background-color: #f0f0f0;
+}
+
+.menu-item-icon {
+    margin-right: 8px; /* oder einen anderen Wert, je nachdem wie viel Abstand du möchtest */
+}
+
+
+/* Responsives Design für Bildschirme unter 450px Breite */
+@media (max-width: 450px) {
+    .chat-container {
+        position: fixed;
+        width: 100%; /* Vollbildbreite */
+        height: 100%; /* Vollbildhöhe */
+        max-width: none; /* Entfernt die maximale Breite */
+        bottom: 0; /* Position am unteren Rand */
+        right: 0; /* Position am rechten Rand */
+        margin: 0; /* Entfernt das zentrierte Margin */
+        border-radius: 0; /* Entfernt die abgerundeten Ecken für Vollbild */
+        box-shadow: none; /* Entfernt den Schatten für Vollbild */
+    }
+
+    .chat-header {
+        height: auto; /* Ermöglicht eine dynamische Höhe basierend auf dem Inhalt */
+        padding: 15px; /* Geringerer Padding für kleinere Bildschirme */
+    }
+
+    .logo {
+        width: 40px; /* Kleinere Logo-Größe für kleinere Bildschirme */
+        height: 40px; /* Kleinere Logo-Größe für kleinere Bildschirme */
+    }
+
+    .suggested-questions {
+        flex-direction: column; /* Stapelt Fragen vertikal */
+        overflow-x: hidden; /* Entfernt horizontalen Scrollbalken */
+        white-space: normal; /* Ermöglicht Umbruch innerhalb der Fragen */        
+    }
+
+    .question-container {
+        width: 100%; /* Füllt die volle Breite des Elternelements aus */
+    }
+
+    .suggested-question {
+        font-size: 16px; /* Erhöht die Schriftgröße für eine bessere Lesbarkeit */
+        padding: 10px 20px 10px 10px ; /* Mehr Innenabstand für größere Berührungsbereiche */
+        width: 80%;
+    }
+
+    .messages {
+        margin-bottom: 60px; /* Angepasster Abstand für den Eingabebereich */
+        font-size: 16px;
+    }
+
+    .message-input {
+        padding: 10px 29px 10px 45px; /* Geringerer Padding für den Eingabebereich */
+    }
+
+    .message-input-field {
+        font-size: 16px;
+        padding-right: 35px; /* Stellt sicher, dass der Text nicht hinter dem Senden-Button erscheint */
+    }
+
+    .send-button {
+        right: 10px; /* Passt die Position des Senden-Buttons an */
+    }
+
+    .overlay {
+        width: 100%; /* Vollbildbreite */
+        height: 100%; /* Vollbildhöhe */
+        bottom: 0; /* Position am unteren Rand */
+        right: 0; /* Position am rechten Rand */
+    }
+
+    .menu-container {
+        width: 100%; /* Vollbildbreite */
+        height: 100%; /* Vollbildhöhe */
+    }
+
+    /* Anpassungen für das Menü */
+    .menu-toggle-button {
+        position: absolute;
+        top: 96.5%;
+        left: 20px; /* Position des Menü-Knopfes in der Ecke */
+    }
+
+    .menu-container ul {
+        bottom: auto; /* Setzt die Positionierung am unteren Rand zurück */
+        
+    }
+
+    .overlay {
+        border-radius: 0px;
+    }
+    .overlay-menu {
+        /* Stellt sicher, dass das Overlay-Menü den gesamten Bildschirm bedeckt */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparenter Hintergrund */
+        z-index: 1000; /* Stellt sicher, dass das Menü über anderen Elementen liegt */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .overlay-menu ul {
+        padding-left: 5%;
+        bottom: 6%;
+        margin: 0;
+        width: 80%; /* Etwas Luft an den Seiten lassen */
+        max-width: 300px; /* Begrenzt die Breite auf 300px, wenn 80% breiter wären */
+    }
+
+    .overlay-menu li {
+        margin-bottom: 8px; /* Etwas weniger Abstand zwischen den Menüpunkten */
+    }
+
+    .menu-item-icon {
+        /* Hier musst du möglicherweise nichts ändern, es sei denn, du möchtest den Abstand oder die Größe der Icons anpassen */
+    }
+}
